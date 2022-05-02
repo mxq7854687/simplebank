@@ -1,4 +1,4 @@
-module simplebank
+module samplebank
 
 go 1.18
 
