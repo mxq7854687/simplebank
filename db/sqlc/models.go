@@ -13,7 +13,6 @@ type Account struct {
 	Username  string    `json:"username"`
 	Balance   int64     `json:"balance"`
 	Currency  string    `json:"currency"`
-	Location  string    `json:"location"`
 	CreatedAt time.Time `json:"created_at"`
 }
 

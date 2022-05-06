@@ -21,21 +21,16 @@ func createRandomAccount(t *testing.T) Account {
 	return testAccount
 }
 func TestCreateAccount(t *testing.T) {
-	checkAccount := CreateAccountParams{
-		Username: "testUsername",
-		Balance:  100,
-		Currency: "USD",
-	}
-
-	testAccount, err := testQueries.CreateAccount(context.Background(), checkAccount)
-
-	require.NoError(t, err)
+	testAccount := createRandomAccount(t)
 	require.NotEmpty(t, testAccount)
-
-	require.Equal(t, checkAccount.Username, testAccount.Username)
-	require.Equal(t, checkAccount.Balance, testAccount.Balance)
-	require.Equal(t, checkAccount.Currency, testAccount.Currency)
 
 	require.NotZero(t, testAccount.ID)
 	require.NotZero(t, testAccount.CreatedAt)
+}
+
+func TestGetAccount(t *testing.T) {
+	account1 := createRandomAccount(t)
+	account2, err := testQueries.GetAccount(context.Background(), account1.ID)
+	require.NoError(t, err)
+	require.Equal(t, account1.Balance, account2.Balance)
 }
