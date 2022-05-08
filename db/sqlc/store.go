@@ -8,7 +8,7 @@ import (
 
 type Store interface {
 	Querier
-	transferTx(ctx context.Context, arg TransferTxParams) (TransferTxResult, error)
+	TransferTx(ctx context.Context, arg TransferTxParams) (TransferTxResult, error)
 }
 type SQLStore struct {
 	*Queries
@@ -52,7 +52,7 @@ type TransferTxResult struct {
 	ToRecord    Record      `json:"to_record"`
 }
 
-func (store *SQLStore) transferTx(ctx context.Context, arg TransferTxParams) (TransferTxResult, error) {
+func (store *SQLStore) TransferTx(ctx context.Context, arg TransferTxParams) (TransferTxResult, error) {
 	var result TransferTxResult
 	err := store.execTx(ctx, func(q *Queries) error {
 		var err error
@@ -84,9 +84,9 @@ func (store *SQLStore) transferTx(ctx context.Context, arg TransferTxParams) (Tr
 		//get account -> update its balance
 
 		if arg.FromAccountId < arg.ToAccountId {
-			addMoney(ctx, q, arg.FromAccountId, -arg.Amount, arg.ToAccountId, arg.Amount)
+			result.FromAccount, result.ToAccount, err = addMoney(ctx, q, arg.FromAccountId, -arg.Amount, arg.ToAccountId, arg.Amount)
 		} else {
-			addMoney(ctx, q, arg.ToAccountId, arg.Amount, arg.FromAccountId, -arg.Amount)
+			result.FromAccount, result.ToAccount, err = addMoney(ctx, q, arg.ToAccountId, arg.Amount, arg.FromAccountId, -arg.Amount)
 		}
 
 		return nil

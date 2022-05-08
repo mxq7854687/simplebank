@@ -48,7 +48,7 @@ func TestCreateTransaction(t *testing.T) {
 
 	for i := 0; i < n; i++ {
 		go func() {
-			result, err := store.transferTx(context.Background(), TransferTxParams{
+			result, err := store.TransferTx(context.Background(), TransferTxParams{
 				FromAccountId: account1.ID,
 				ToAccountId:   account2.ID,
 				Amount:        amount,
@@ -152,7 +152,7 @@ func TestCreateTransactionDeadLock(t *testing.T) {
 			toAccountID = account1.ID
 		}
 		go func() {
-			_, err := store.transferTx(context.Background(), TransferTxParams{
+			_, err := store.TransferTx(context.Background(), TransferTxParams{
 				FromAccountId: fromAccountID,
 				ToAccountId:   toAccountID,
 				Amount:        amount,
@@ -173,8 +173,8 @@ func TestCreateTransactionDeadLock(t *testing.T) {
 	updateAccount2, err := testQueries.GetAccount(context.Background(), account2.ID)
 	require.NoError(t, err)
 
-	require.Equal(t, account1, updateAccount1.Balance)
-	require.Equal(t, account2, updateAccount2.Balance)
+	require.Equal(t, account1.Balance, updateAccount1.Balance)
+	require.Equal(t, account2.Balance, updateAccount2.Balance)
 
 	fmt.Println(">> After: ", account1.Balance, account2.Balance)
 }
