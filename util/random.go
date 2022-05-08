@@ -34,3 +34,8 @@ func RandomUsername() string {
 func RandomBalance() int64 {
 	return RandomInt64(100, 1000)
 }
+
+func RandomCurrency() string {
+	currencyList := []string{"USD", "EUR"}
+	return currencyList[RandomInt64(0, int64(len(currencyList)-1))]
+}
