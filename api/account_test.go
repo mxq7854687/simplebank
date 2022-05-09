@@ -74,18 +74,18 @@ func TestGetAccountAPI(t *testing.T) {
 				require.Equal(t, http.StatusInternalServerError, recorder.Code)
 			},
 		},
-		// {
-		// 	name:      "BadRequest",
-		// 	accountID: -1,
-		// 	buildStubs: func(store *mockdb.MockStore) {
-		// 		store.EXPECT().
-		// 			GetAccount(gomock.Any(), gomock.Any()).
-		// 			Times(0)
-		// 	},
-		// 	checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
-		// 		require.Equal(t, http.StatusBadRequest, recorder.Code)
-		// 	},
-		// },
+		{
+			name:      "BadRequest",
+			accountID: -1,
+			buildStubs: func(store *mockdb.MockStore) {
+				store.EXPECT().
+					GetAccount(gomock.Any(), gomock.Any()).
+					Times(0)
+			},
+			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
+				require.Equal(t, http.StatusBadRequest, recorder.Code)
+			},
+		},
 	}
 
 	for i := range testCases {
