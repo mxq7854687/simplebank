@@ -32,7 +32,7 @@ func (server *Server) createUser(ctx *gin.Context) {
 		Username:       req.Username,
 		HashedPassword: hashedPassword,
 		FullName:       req.FullName,
-		Email:          req.FullName,
+		Email:          req.Email,
 	}
 
 	user, err := server.store.CreateUser(ctx, arg)
