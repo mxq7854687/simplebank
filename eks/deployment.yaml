@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: api
-        image: 121304858170.dkr.ecr.ap-northeast-1.amazonaws.com/mybank:2e9278bf3f0bd7718629bc76ef3c25376c906a99
+        image: 121304858170.dkr.ecr.ap-northeast-1.amazonaws.com/mybank:c30abcadf255a1a5a822790c04302010dc0d08ec
         ports:
         - containerPort: 8080
